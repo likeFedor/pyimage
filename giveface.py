@@ -1,3 +1,4 @@
+#-*-coding:utf-8 -*-
 import cv2
 import dlib
 from subprocess import call
