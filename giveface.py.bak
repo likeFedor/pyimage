@@ -2,6 +2,7 @@ import cv2
 import dlib
 from subprocess import call
 from time import time
+from PIL import Image
 
 FREQ=5
 dlib.get_frontal_face_detector()
@@ -22,6 +23,7 @@ if __name__=='__main__':
         for face in faces:
             fimg=frame[face.top():face.bottom(),face.left():face.right()]
             cv2.rectangle(frame,(face.left(),face.top()),(face.right(),face.bottom()),(255,0,0),3)
+            #不超过一秒发一次提醒
             if time()-notify_time>FREQ:
                 notify(u'face',u'care')
                 notify_time=time()

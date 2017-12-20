@@ -2,7 +2,12 @@ import cv2
 import dlib
 from subprocess import call
 from time import time
-
+from PIL import Image
+img=Image.open("./test.jpg")
+try:
+    img.save("test.png")
+except IOError:
+    print ('canot convert')
 FREQ=5
 dlib.get_frontal_face_detector()
 def notify(text,title):
