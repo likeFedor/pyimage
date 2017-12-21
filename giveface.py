@@ -1,4 +1,7 @@
 #-*-coding:utf-8 -*-
+#sudo apt-get install libboost-python-dev cmake
+##pip install scikit-image
+###pip install dlib
 import cv2
 import dlib
 from subprocess import call
