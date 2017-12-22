@@ -1,4 +1,5 @@
 #-*-encoding:utf-8 -*-
+#这个项目很麻烦，需要自己建立字库，这样识别率才能上来
 import sys
 import time
 time1=time.time()
@@ -14,6 +15,7 @@ def binarizing(img,threshold):
                 pixdata[x, y] = 0
             else:
                 pixdata[x, y] = 255
+    img.save("./2.jpg")
     return img
 
 
@@ -43,22 +45,26 @@ def identity_OCR(pic_path):
     img1=Image.open(pic_path)
     w,h=img1.size
     ##将身份证放大3倍
-    out=img1.resize((w*3,h*3),Image.ANTIALIAS)
-    region = (125*3,200*3,370*3,250*3)
+    #out=img1.resize((w*3,h*3),Image.ANTIALIAS)
+    #region = (125*3,200*3,370*3,250*3)
     #裁切身份证号码图片
-    cropImg = out.crop(region)
+    #cropImg = out.crop(region)
     # 转化为灰度图
-    img= cropImg.convert('L')
+    img=img1.convert('L')
+    #img= cropImg.convert('L')
     # 把图片变成二值图像。
-    img1=binarizing(img,100)
+    img1=binarizing(img,160)
     img2=depoint(img)
-    code = pytesseract.image_to_string(img2)
+    code = pytesseract.image_to_string(img2,lang='chi_sim')
+    file=open('news.txt','w',encoding='GBK')
+    file.write(code)
+    #code=str(code).encode('utf-8')
     print ("识别该身份证号码是:"+str(code))
 
 
 
 if __name__ == '__main__':
-    pic_path="D:/PycharmProjects/pyimage/1.jpg"
+    pic_path="D:/PycharmProjects/pyimage/3.jpg"
     identity_OCR(pic_path)
     time2 = time.time()
     print (u'总共耗时：' + str(time2 - time1) + 's')
